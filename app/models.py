@@ -1,4 +1,3 @@
-# app/models.py
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from .database import Base
@@ -12,7 +11,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     
-    search_history = relationship("SearchHistory", back_populates="user")  # Add this line
+    search_history = relationship("SearchHistory", back_populates="user") 
 
 
 class Bus(Base):

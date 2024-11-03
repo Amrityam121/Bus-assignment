@@ -1,4 +1,3 @@
-# app/main.py
 from typing import List
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm

@@ -1,4 +1,3 @@
-# app/crud.py
 from datetime import datetime
 from sqlalchemy.orm import Session
 from . import models, schemas
@@ -16,7 +15,7 @@ def search_buses(db: Session, search: schemas.BusSearchRequest):
             "destination": bus.destination,
             "seats_available": bus.seats_available,
             "start_time" : bus.start_time,
-            "stops": bus.stops.split(",") if bus.stops else []  # Convert string to list
+            "stops": bus.stops.split(",") if bus.stops else [] 
         }
         for bus in buses
     ]
@@ -26,7 +25,7 @@ def create_search_history(db: Session, search: schemas.BusSearchRequest, user_id
         source=search.source,
         destination=search.destination,
         date_of_journey=search.date_of_journey,
-        user_id=user_id  # Save the user ID
+        user_id=user_id 
     )
     db.add(search_history)
     db.commit()
@@ -57,7 +56,7 @@ def block_seats(db: Session, bus: models.Bus, block_request: schemas.SeatBlockRe
         bus_id=bus.id,
         no_of_passengers=block_request.no_of_passengers,
         pickup_point=block_request.pickup_point,
-        user_id=user_id  # Set user ID here
+        user_id=user_id  
     )
     db.add(seat_block)
     db.commit()

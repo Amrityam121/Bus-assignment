@@ -24,7 +24,7 @@ def block_seats_service(db: Session, block_request: schemas.SeatBlockRequest, us
 
 
 def book_ticket_service(db: Session, booking_request: schemas.BookTicketRequest, user_id: str):
-    seat_block = db.query(models.SeatBlock).filter(models.SeatBlock.id == booking_request.blocking_id, models.SeatBlock.user_id == user_id).first()  # Check user ID
+    seat_block = db.query(models.SeatBlock).filter(models.SeatBlock.id == booking_request.blocking_id, models.SeatBlock.user_id == user_id).first()  
     
     if not seat_block:
         raise ValueError("Invalid blocking ID or you do not have access to this block.")
@@ -35,7 +35,7 @@ def book_ticket_service(db: Session, booking_request: schemas.BookTicketRequest,
     seat_block.confirmed = True
     db.add(seat_block)
     
-    booking = models.Booking(block_id=seat_block.id, user_id=user_id)  # Include user ID if necessary
+    booking = models.Booking(block_id=seat_block.id, user_id=user_id)  
     db.add(booking)
     
     db.commit()

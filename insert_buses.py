@@ -1,13 +1,10 @@
-# insert_dummy_buses.py
-
 import os
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.models import Base, Bus  # Ensure this path matches your actual file structure
+from app.models import Base, Bus  
 import random
 
-# Database URL - adjust as needed
 DATABASE_URL = "postgresql://user:123@db/booking"
 
 # SQLAlchemy setup
@@ -25,11 +22,11 @@ def generate_dummy_buses(num_buses=10):
     buses = []
     for i in range(num_buses):
         source = random.choice(sources)
-        destination = random.choice([d for d in destinations if d != source])  # Ensure source != destination
-        start_time = f"{random.randint(0, 23):02}:{random.randint(0, 59):02}"  # Random start time in HH:MM format
-        date_of_journey = datetime.utcnow() + timedelta(days=random.randint(1, 30))  # Random future date
-        seats_available = random.randint(10, 50)  # Random seats between 10 and 50
-        route_stops = random.sample(stops, random.randint(2, len(stops)))  # Random stops along the route
+        destination = random.choice([d for d in destinations if d != source]) 
+        start_time = f"{random.randint(0, 23):02}:{random.randint(0, 59):02}"  
+        date_of_journey = datetime.utcnow() + timedelta(days=random.randint(1, 30))  
+        seats_available = random.randint(10, 50)  
+        route_stops = random.sample(stops, random.randint(2, len(stops)))  
         
         bus = Bus(
             source=source,
@@ -37,12 +34,12 @@ def generate_dummy_buses(num_buses=10):
             start_time=start_time,
             date_of_journey=date_of_journey,
             seats_available=seats_available,
-            stops=",".join(route_stops)  # Convert stops list to a comma-separated string
+            stops=",".join(route_stops) 
         )
         buses.append(bus)
     return buses
 
-# Insert Data into Database
+
 def insert_dummy_buses():
     """Inserts dummy bus data into the buses table."""
     session = SessionLocal()
